@@ -142,7 +142,7 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
-const book = getBook(2);
+let book = getBook(2);
 const { author, genres, title, pages, hasMovieAdaptation, publicationDate } =
   book;
 const newGenres = [...genres, 'epic fantasy'];
@@ -153,13 +153,64 @@ const updatedBook = {
   moviePublicationDate: '2001-12-19',
 };
 updatedBook;
-const summary = `${title} is a ${pages} pages long book by ${author} published in ${
-  publicationDate.split('-')[0]
-}`;
+
+// arrow functions Get year
+const getYear = (str) => str.split('-')[0];
+console.log(getYear(publicationDate));
+const getTitle = (str) => str.split('-')[0];
+console.log(getTitle(title));
+
+const summary = `${title} is a ${pages} pages long book by ${author} published in ${getYear(
+  publicationDate
+)}`;
 summary;
+
+// Ternaries instead of if -else
 const checkPages = pages > 1000 ? 'over a thousand' : ' less than a thousand';
 checkPages;
+
 console.log(`the book has ${checkPages} pages`);
 console.log(
   `the book has ${hasMovieAdaptation ? '' : 'not'} been adapted as a movie`
 );
+// Short circuiting and logical operators &&||??
+// falsy like (0,'',null,undefined) the operator &&(and) returns the value after it,only if the statment before it is true, if falsy(false)it returns the value before.
+console.log(true && 'some string');
+console.log(false && 'some string');
+console.log(0 && 'some string');
+console.log(`${hasMovieAdaptation && 'The book has a movie'}`);
+
+// operator ||(or) works the opposite of &&
+
+console.log(true || 'some string');
+console.log(false || 'some string');
+console.log(0 || 'some string');
+console.log(`${hasMovieAdaptation || 'The book has a movie'}`);
+const TranslationCheck = book.translations.spanish || 'NOT TRANSLATED';
+TranslationCheck;
+
+// ?? works exactly like || but works only if first value is null or undefined, not 0 or empty (wich leads to errors in some cases)
+
+console.log(0 ?? 'some string');
+console.log(null ?? 'some string');
+
+// optional chaining
+// if data returns as undefined we can use ? and ?? to filter and assign a default value of 0 avoid errors and getting a counter in any case
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews.goodreads.reviewsCount;
+  // this book has no reviews count on librarything, so using optional chaining ? and?? we aavoid undefined and errors simply adding a value of 0 to the counter
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  librarything;
+  return goodreads + librarything;
+}
+console.log(getTotalReviewCount(book));
+// book 1 has librarything reviews instead
+book = getBook(1);
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews.goodreads.reviewsCount;
+  // this book has reviews count on librarything, so using optional chaining ? and?? we avoid undefined and errors simply adding a value of 0 to the counter
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  librarything;
+  return goodreads + librarything;
+}
+console.log(getTotalReviewCount(book));
