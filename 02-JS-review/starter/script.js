@@ -135,67 +135,84 @@ const data = [
   },
 ];
 
+// function getBook(id) {
+//   return data.find((d) => d.id === id);
+// }
+// let book = getBook(2);
+// const { author, genres, title, pages, hasMovieAdaptation, publicationDate } =
+//   book;
+// const newGenres = [...genres, 'epic fantasy'];
+// console.log(newGenres);
+
+// const updatedBook = {
+//   ...book,
+//   moviePublicationDate: '2001-12-19',
+// };
+// updatedBook;
+
+// // arrow functions Get year
+// const getYear = (str) => str.split('-')[0];
+// console.log(getYear(publicationDate));
+// const getTitle = (str) => str.split('-')[0];
+// console.log(getTitle(title));
+
+// const summary = `${title} is a ${pages} pages long book by ${author} published in ${getYear(
+//   publicationDate
+// )}`;
+// summary;
+
+// // Ternaries instead of if -else
+// const checkPages = pages > 1000 ? 'over a thousand' : ' less than a thousand';
+// checkPages;
+
+// console.log(`the book has ${checkPages} pages`);
+// console.log(
+//   `the book has ${hasMovieAdaptation ? '' : 'not'} been adapted as a movie`
+// );
+// // Short circuiting and logical operators &&||??
+// // falsy like (0,'',null,undefined) the operator &&(and) returns the value after it,only if the statment before it is true, if falsy(false)it returns the value before.
+// console.log(true && 'some string');
+// console.log(false && 'some string');
+// console.log(0 && 'some string');
+// console.log(`${hasMovieAdaptation && 'The book has a movie'}`);
+
+// // operator ||(or) works the opposite of &&
+
+// console.log(true || 'some string');
+// console.log(false || 'some string');
+// console.log(0 || 'some string');
+// console.log(`${hasMovieAdaptation || 'The book has a movie'}`);
+// const TranslationCheck = book.translations.spanish || 'NOT TRANSLATED';
+// TranslationCheck;
+
+// // ?? works exactly like || but works only if first value is null or undefined, not 0 or empty (wich leads to errors in some cases)
+
+// console.log(0 ?? 'some string');
+// console.log(null ?? 'some string');
+
+// // optional chaining
+// // if data returns as undefined we can use ? and ?? to filter and assign a default value of 0 avoid errors and getting a counter in any case
+// function getTotalReviewCount(book) {
+//   const goodreads = book.reviews.goodreads.reviewsCount;
+//   // this book has no reviews count on librarything, so using optional chaining ? and?? we aavoid undefined and errors simply adding a value of 0 to the counter
+//   const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+//   librarything;
+//   return goodreads + librarything;
+// }
+// console.log(getTotalReviewCount(book));
+// // book 1 has librarything reviews instead
+// book = getBook(1);
+// function getTotalReviewCount(book) {
+//   const goodreads = book.reviews.goodreads.reviewsCount;
+//   // this book has reviews count on librarything, so using optional chaining ? and?? we avoid undefined and errors simply adding a value of 0 to the counter
+//   const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+//   librarything;
+//   return goodreads + librarything;
+// }
+// console.log(getTotalReviewCount(book));
 function getBooks() {
   return data;
 }
-
-function getBook(id) {
-  return data.find((d) => d.id === id);
-}
-let book = getBook(2);
-const { author, genres, title, pages, hasMovieAdaptation, publicationDate } =
-  book;
-const newGenres = [...genres, 'epic fantasy'];
-console.log(newGenres);
-
-const updatedBook = {
-  ...book,
-  moviePublicationDate: '2001-12-19',
-};
-updatedBook;
-
-// arrow functions Get year
-const getYear = (str) => str.split('-')[0];
-console.log(getYear(publicationDate));
-const getTitle = (str) => str.split('-')[0];
-console.log(getTitle(title));
-
-const summary = `${title} is a ${pages} pages long book by ${author} published in ${getYear(
-  publicationDate
-)}`;
-summary;
-
-// Ternaries instead of if -else
-const checkPages = pages > 1000 ? 'over a thousand' : ' less than a thousand';
-checkPages;
-
-console.log(`the book has ${checkPages} pages`);
-console.log(
-  `the book has ${hasMovieAdaptation ? '' : 'not'} been adapted as a movie`
-);
-// Short circuiting and logical operators &&||??
-// falsy like (0,'',null,undefined) the operator &&(and) returns the value after it,only if the statment before it is true, if falsy(false)it returns the value before.
-console.log(true && 'some string');
-console.log(false && 'some string');
-console.log(0 && 'some string');
-console.log(`${hasMovieAdaptation && 'The book has a movie'}`);
-
-// operator ||(or) works the opposite of &&
-
-console.log(true || 'some string');
-console.log(false || 'some string');
-console.log(0 || 'some string');
-console.log(`${hasMovieAdaptation || 'The book has a movie'}`);
-const TranslationCheck = book.translations.spanish || 'NOT TRANSLATED';
-TranslationCheck;
-
-// ?? works exactly like || but works only if first value is null or undefined, not 0 or empty (wich leads to errors in some cases)
-
-console.log(0 ?? 'some string');
-console.log(null ?? 'some string');
-
-// optional chaining
-// if data returns as undefined we can use ? and ?? to filter and assign a default value of 0 avoid errors and getting a counter in any case
 function getTotalReviewCount(book) {
   const goodreads = book.reviews.goodreads.reviewsCount;
   // this book has no reviews count on librarything, so using optional chaining ? and?? we aavoid undefined and errors simply adding a value of 0 to the counter
@@ -203,14 +220,65 @@ function getTotalReviewCount(book) {
   librarything;
   return goodreads + librarything;
 }
-console.log(getTotalReviewCount(book));
-// book 1 has librarything reviews instead
-book = getBook(1);
-function getTotalReviewCount(book) {
-  const goodreads = book.reviews.goodreads.reviewsCount;
-  // this book has reviews count on librarything, so using optional chaining ? and?? we avoid undefined and errors simply adding a value of 0 to the counter
-  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
-  librarything;
-  return goodreads + librarything;
-}
-console.log(getTotalReviewCount(book));
+const books = getBooks();
+// Map array method loops over an array and returns each element with some operation applied to it, it returns a new array.
+const x = [1, 2, 3, 4, 5].map((el) => el * 2);
+console.log(x);
+
+const titles = books.map((book) => book.title);
+console.log(titles);
+
+// when using curly braces with arrow functions we are  declaring the second part of the function in classic mode
+// const essentialData = books.map((book) => {
+//   return {
+//     title: book.title,
+//     author: book.author,
+//   };
+// });
+// it's completely fine
+// but to return an object, the correct way to write this function in arrow mode is with parenthesis and then curly braces.
+const essentialData = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getTotalReviewCount(book),
+}));
+essentialData;
+
+// filter array method loops over the array and returns for each value a condition of true or false. If true the element returns, if false the element will get filtered.Filter returns a new array that can also be filtered as shown below.
+
+const longBooksWithMovie = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+longBooksWithMovie;
+
+const adventureBooks = books
+  .filter((books) => books.genres.includes('adventure'))
+  .map((book) => book.title);
+adventureBooks;
+
+// reduce method uses an accumulator to sum each value of each object in the array returning just one value.
+const pagesAllBooks = books.reduce((acc, book) => acc + book.pages, 0);
+pagesAllBooks;
+
+// sort array method. using the minus operator and the valuee a returns first the lower value in the array and then the higher values. The contrary happens using value b, minus, then a.
+//the sort method mutates the original array (sortMinus) but we do not want that so we need to first copy the original array WITH SLICE and then apply the sort method.
+
+const sortMinus = [3, 7, 1, 9, 6];
+// original array above
+const sortedMinus = sortMinus.sort((a, b) => a - b);
+sortedMinus;
+// (altered original array below)
+sortMinus;
+
+// we need to first copy the original array WITH SLICE and then apply the sort method as shown below.
+
+const sortPlus = [3, 7, 1, 9, 6];
+// original array above
+const sortedPlus = sortPlus.slice().sort((a, b) => b - a);
+sortedPlus;
+// (original array below is unchanged)
+sortPlus;
+
+// sorting objects
+const sortByPages = books.slice().sort((a, b) => b.pages - a.pages);
+sortByPages;
