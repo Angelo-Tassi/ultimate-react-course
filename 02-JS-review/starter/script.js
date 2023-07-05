@@ -1,23 +1,23 @@
 const data = [
   {
     id: 1,
-    title: 'The Lord of the Rings',
-    publicationDate: '1954-07-29',
-    author: 'J. R. R. Tolkien',
+    title: "The Lord of the Rings",
+    publicationDate: "1954-07-29",
+    author: "J. R. R. Tolkien",
     genres: [
-      'fantasy',
-      'high-fantasy',
-      'adventure',
-      'fiction',
-      'novels',
-      'literature',
+      "fantasy",
+      "high-fantasy",
+      "adventure",
+      "fiction",
+      "novels",
+      "literature",
     ],
     hasMovieAdaptation: true,
     pages: 1216,
     translations: {
-      spanish: 'El señor de los anillos',
-      chinese: '魔戒',
-      french: 'Le Seigneur des anneaux',
+      spanish: "El señor de los anillos",
+      chinese: "魔戒",
+      french: "Le Seigneur des anneaux",
     },
     reviews: {
       goodreads: {
@@ -34,15 +34,15 @@ const data = [
   },
   {
     id: 2,
-    title: 'The Cyberiad',
-    publicationDate: '1965-01-01',
-    author: 'Stanislaw Lem',
+    title: "The Cyberiad",
+    publicationDate: "1965-01-01",
+    author: "Stanislaw Lem",
     genres: [
-      'science fiction',
-      'humor',
-      'speculative fiction',
-      'short stories',
-      'fantasy',
+      "science fiction",
+      "humor",
+      "speculative fiction",
+      "short stories",
+      "fantasy",
     ],
     hasMovieAdaptation: false,
     pages: 295,
@@ -62,14 +62,14 @@ const data = [
   },
   {
     id: 3,
-    title: 'Dune',
-    publicationDate: '1965-01-01',
-    author: 'Frank Herbert',
-    genres: ['science fiction', 'novel', 'adventure'],
+    title: "Dune",
+    publicationDate: "1965-01-01",
+    author: "Frank Herbert",
+    genres: ["science fiction", "novel", "adventure"],
     hasMovieAdaptation: true,
     pages: 658,
     translations: {
-      spanish: '',
+      spanish: "",
     },
     reviews: {
       goodreads: {
@@ -82,16 +82,16 @@ const data = [
   {
     id: 4,
     title: "Harry Potter and the Philosopher's Stone",
-    publicationDate: '1997-06-26',
-    author: 'J. K. Rowling',
-    genres: ['fantasy', 'adventure'],
+    publicationDate: "1997-06-26",
+    author: "J. K. Rowling",
+    genres: ["fantasy", "adventure"],
     hasMovieAdaptation: true,
     pages: 223,
     translations: {
-      spanish: 'Harry Potter y la piedra filosofal',
-      korean: '해리 포터와 마법사의 돌',
-      bengali: 'হ্যারি পটার এন্ড দ্য ফিলোসফার্স স্টোন',
-      portuguese: 'Harry Potter e a Pedra Filosofal',
+      spanish: "Harry Potter y la piedra filosofal",
+      korean: "해리 포터와 마법사의 돌",
+      bengali: "হ্যারি পটার এন্ড দ্য ফিলোসফার্স স্টোন",
+      portuguese: "Harry Potter e a Pedra Filosofal",
     },
     reviews: {
       goodreads: {
@@ -108,17 +108,17 @@ const data = [
   },
   {
     id: 5,
-    title: 'A Game of Thrones',
-    publicationDate: '1996-08-01',
-    author: 'George R. R. Martin',
-    genres: ['fantasy', 'high-fantasy', 'novel', 'fantasy fiction'],
+    title: "A Game of Thrones",
+    publicationDate: "1996-08-01",
+    author: "George R. R. Martin",
+    genres: ["fantasy", "high-fantasy", "novel", "fantasy fiction"],
     hasMovieAdaptation: true,
     pages: 835,
     translations: {
-      korean: '왕좌의 게임',
-      polish: 'Gra o tron',
-      portuguese: 'A Guerra dos Tronos',
-      spanish: 'Juego de tronos',
+      korean: "왕좌의 게임",
+      polish: "Gra o tron",
+      portuguese: "A Guerra dos Tronos",
+      spanish: "Juego de tronos",
     },
     reviews: {
       goodreads: {
@@ -161,7 +161,7 @@ const data = [
 // )}`;
 // summary;
 
-// // Ternaries instead of if -else
+// // Ternaries instead of if -else. Ternaries are bound to a specific syntax, first part IS THE CONDITION, then we insert a question mark(?) THE QUESTION MARK MEANS RETURN, then we put the first value to return if the condition is true, THEN WE USE 2 POINTS(:) THAT IN THIS CASE MEAN ELSE, then the second value to return if the first condition is false.
 // const checkPages = pages > 1000 ? 'over a thousand' : ' less than a thousand';
 // checkPages;
 
@@ -252,7 +252,7 @@ const longBooksWithMovie = books
 longBooksWithMovie;
 
 const adventureBooks = books
-  .filter((books) => books.genres.includes('adventure'))
+  .filter((books) => books.genres.includes("adventure"))
   .map((book) => book.title);
 adventureBooks;
 
@@ -282,3 +282,25 @@ sortPlus;
 // sorting objects
 const sortByPages = books.slice().sort((a, b) => b.pages - a.pages);
 sortByPages;
+// npm install -g create-react-app@latest installs latest version of create react app
+// working with unmutable arrays, means that we do not ever want to delete the original arrays and structure of apps data
+//1)add book object to array
+
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber od Secrets",
+  author: "{J.K. Rowling}",
+};
+const booksAfterAdd = [...books, newBook];
+books;
+booksAfterAdd;
+
+// 2)delete a book object from array
+// in the example below we return in a new array all the books that are different from id3 using the filter method
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+//3) update objects in the array, we can also manually delete the book with the id of 3
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id === 1 ? { ...book, pages: 1210 } : book
+);
+booksAfterUpdate;
