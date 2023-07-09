@@ -67,14 +67,23 @@ function Header() {
   );
 }
 function Menu() {
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
   return (
     <div className="menu">
       <h2>Our Menu</h2>
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
+
+      {numPizzas > 0 ? (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>
+          The menu is still work in progress, please come back at a later time.
+        </p>
+      )}
     </div>
   );
 }
@@ -91,13 +100,6 @@ function Pizza(props) {
   );
 }
 
-const root = RectDom.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
 //React before 18
 //React.render
 
@@ -106,11 +108,28 @@ function Footer() {
   const openHour = 12;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-  // if (hour >= openHour && hour <= closeHour) alert('We are currently open !');
-  // else alert('Sorry we are closed.');
+  console.log(isOpen);
+
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()}- We are currently open{' '}
+      {isOpen ? (
+        <div className="order">
+          <p>We are open until {closeHour}:00 Come visit us or order online.</p>
+          <button className="btn">order</button>
+        </div>
+      ) : (
+        <p>
+          {' '}
+          We are open between {openHour}:00 and {closeHour}:00. Please come
+          visit us later !
+        </p>
+      )}
     </footer>
   );
 }
+const root = RectDom.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
