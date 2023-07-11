@@ -1,13 +1,10 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { useState } from "react";
+import './App.css';
+import { useState } from 'react';
 
 export default function App() {
   return (
     <div className="App">
       <Multiplier />
-      <br></br>
-      <Counter />
     </div>
   );
 }
@@ -26,21 +23,22 @@ function Multiplier() {
         <span>Step:{step5}</span>
         <button onClick={addFive}>+</button>
       </div>
+      <Counter step5={step5} />
     </div>
   );
 }
 
-function Counter({ step5, setStep5 }) {
+function Counter({ step5 }) {
   const [step, setStep] = useState(0);
 
-  const date = new Date("June 21 2027");
+  const date = new Date('June 21 2027');
   date.setDate(date.getDate() + step);
 
-  function addSingle(step5, setStep5) {
-    setStep((s) => s + { setStep5 });
+  function addSingle() {
+    setStep((s) => s + step5);
   }
   function subtractSingle() {
-    setStep((s) => s - 1);
+    setStep((s) => s - step5);
   }
 
   return (
@@ -54,7 +52,7 @@ function Counter({ step5, setStep5 }) {
       <p>
         <span>
           {step === 0
-            ? "Today is "
+            ? 'Today is '
             : step > 0
             ? `${step} days from today is `
             : `${Math.abs(step)} days ago was `}
