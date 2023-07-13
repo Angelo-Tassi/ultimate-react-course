@@ -23,24 +23,41 @@ function Logo() {
 }
 
 function Form() {
+  // sets state and props for the input field, then disables html default
   const [description, setDescription] = useState('');
   function handleSubmit(e) {
+    // setDescription(e.target.value);
+    // console.log(e.target.value);
     e.preventDefault();
+
+    if (!description) return;
+
+    const newItem = { description, quantity, packed: false, id: Date.now() };
+    console.log(newItem);
+
+    setDescription('');
+    setQuantity(1);
   }
-  const [option, setOption] = useState('');
+  // sets state and props for the select dropdown, then disables html default
+  const [quantity, setQuantity] = useState(1);
   function handleSelect(e) {
-    e.preventDefault();
+    setQuantity(Number(e.target.value));
+    // console.log(e.target.value);
+    // e.preventDefault();
   }
+  // creates a new array of 20 items
+  function createArray() {
+    return Array.from({ length: 20 }, (_, i) => i + 1);
+  }
+
   return (
+    // onSubmit method works on both the input field and button in the entire form, in this case is used at the beginning with the purpose of disabling the default html refresh behavior when we interact with the forms.
     <form className="add-form" onSubmit={handleSubmit}>
       <h3>🚢 What do tou need for your trip ? ✈</h3>
-      <select
-        onChange={(e) => {
-          setOption(e.target.value);
-          console.log(e.target.value);
-        }}
-      >
-        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+      {/* the event for select dropdown is triggered by onChange */}
+      <select value={quantity} onChange={handleSelect}>
+        {/* loops over the previously created array with map method */}
+        {createArray().map((num) => (
           <option value={num} key={num}>
             {num}
           </option>
@@ -50,9 +67,12 @@ function Form() {
         type="text"
         placeholder="Item..."
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        // {/* the event for the input field is triggered by onChange */}
+        onChange={(e) => {
+          setDescription(e.target.value);
+        }}
       />
-      <button>Add</button>
+      <button type="submit">Add</button>
     </form>
   );
 }
