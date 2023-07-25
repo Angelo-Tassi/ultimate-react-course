@@ -66,7 +66,7 @@ function Form({ addItems }) {
   return (
     // onSubmit method works on both the input field and button in the entire form, in this case is used at the beginning with the purpose of disabling the default html refresh behavior when we interact with the forms.
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>🚢 What do tou need for your trip ? ✈</h3>
+      <h3>🚢 Pack your stuff ! ✈</h3>
       {/* the event for select dropdown is triggered by onChange */}
       <select value={quantity} onChange={handleSelect}>
         {/* loops over the previously created array with map method */}
@@ -126,18 +126,17 @@ function Item({ item, onDeleteItems, handleCheckItems }) {
 }
 
 function Stats({ items }) {
-  console.log(items);
+  const totalItems = items.length;
+  console.log(items.length);
 
-  const totalItems = items.lenght;
-  console.log(items.lenght);
-
-  const numPacked = items.filter((item) => item.packed).lenght;
+  const numPacked = items.filter((item) => item.packed).length;
   const percentage = Math.round((numPacked / totalItems) * 100);
   return (
     <footer className="stats">
       <em>
-        {`You have ${totalItems} items on your list, and you already packed ${numPacked}{' '}
-        {numPacked}()`}
+        {`You have ${totalItems} ${
+          totalItems === 1 ? 'item' : 'items'
+        } on your list, you already packed ${numPacked} of them, you are ${percentage} % done`}
       </em>
     </footer>
   );
