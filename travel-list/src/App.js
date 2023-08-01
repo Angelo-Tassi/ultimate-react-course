@@ -1,19 +1,31 @@
 import { useState } from 'react';
 
-const initialItems = [
-  { id: 1, description: 'Passports', quantity: 2, packed: true },
-  { id: 2, description: 'Socks', quantity: 12, packed: false },
-  { id: 3, description: 'Charger', quantity: 1, packed: false },
-  { id: 4, description: 'Burrito', quantity: 2, packed: true },
-];
-
 export default function App() {
+  const [items, setItems] = useState([]);
+
+  function handleAddItems(item) {
+    setItems((items) => [...items, item]);
+  }
+  function handleDeleteItems(id) {
+    setItems((items) => items.filter((item) => item.id !== id));
+  }
+  function handleCheckItems(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
-      <Stats />
+      <Form addItems={handleAddItems} />
+      <PackingList
+        items={items}
+        onDeleteItems={handleDeleteItems}
+        handleCheckItems={handleCheckItems}
+      />
+      <Stats items={items} />
     </div>
   );
 }
@@ -22,7 +34,7 @@ function Logo() {
   return <h1>🌴 Far Away 🌴</h1>;
 }
 
-function Form() {
+function Form({ addItems }) {
   // sets state and props for the input field, then disables html default
   const [description, setDescription] = useState('');
   function handleSubmit(e) {
@@ -34,6 +46,7 @@ function Form() {
 
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
+    addItems(newItem);
 
     setDescription('');
     setQuantity(1);
@@ -53,7 +66,7 @@ function Form() {
   return (
     // onSubmit method works on both the input field and button in the entire form, in this case is used at the beginning with the purpose of disabling the default html refresh behavior when we interact with the forms.
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>🚢 What do tou need for your trip ? ✈</h3>
+      <h3>🚢 Pack your stuff ! ✈</h3>
       {/* the event for select dropdown is triggered by onChange */}
       <select value={quantity} onChange={handleSelect}>
         {/* loops over the previously created array with map method */}
@@ -77,34 +90,54 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items, onDeleteItems, handleCheckItems }) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
-          <Item item={item} key={item.id} />
+        {items.map((item) => (
+          <Item
+            item={item}
+            handleCheckItems={handleCheckItems}
+            onDeleteItems={onDeleteItems}
+            key={item.id}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItems, handleCheckItems }) {
   return (
     <li>
+      <input
+        type="checkbox"
+        value={item.packed}
+        onChange={() => handleCheckItems(item.id)}
+      />
       <span style={item.packed ? { textDecoration: 'line-through' } : {}}>
-        {item.quantity}
-        {item.description}
+        {`${item.quantity} ${item.description}`}
       </span>
-      <button>{item.packed ? '✅' : '❌'}</button>
+      <button onClick={() => onDeleteItems(item.id)}>
+        {item.packed ? '✅' : '❌'}
+      </button>
     </li>
   );
 }
 
-function Stats() {
+function Stats({ items }) {
+  const totalItems = items.length;
+  console.log(items.length);
+
+  const numPacked = items.filter((item) => item.packed).length;
+  const percentage = Math.round((numPacked / totalItems) * 100);
   return (
     <footer className="stats">
-      <em>You have x items on your list, and you already packed x(x%)</em>
+      <em>
+        {`You have ${totalItems} ${
+          totalItems === 1 ? 'item' : 'items'
+        } on your list, you already packed ${numPacked} of them, you are ${percentage} % done`}
+      </em>
     </footer>
   );
 }
