@@ -134,15 +134,28 @@ const data = [
     },
   },
 ];
+// function getBooks() {
+//   return data;
+// }
+// //all books
 
 // function getBook(id) {
 //   return data.find((d) => d.id === id);
 // }
 // let book = getBook(2);
-// const { author, genres, title, pages, hasMovieAdaptation, publicationDate } =
-//   book;
-// const newGenres = [...genres, 'epic fantasy'];
-// console.log(newGenres);
+
+// const updatedBook = { ...book, publishedOnKdp: true };
+
+// const genres = book.genres;
+// const newGenres = [...genres];
+
+const string = "AAAABBBBCCCCCDDDDD";
+const SpreadString = [...string]; //use of the spread operator
+const filteredNewString = SpreadString.filter(
+  (item, index, array) => array.indexOf(item) === index
+); //returns only unique items leaving in the new array, only the first index where each unique element is found
+console.log(SpreadString); //['A', 'A', 'A', 'A', 'B','B', 'B', 'B', 'C', 'C','C', 'C', 'C', 'D', 'D','D', 'D', 'D']
+console.log(filteredNewString); //[ 'A', 'B', 'C', 'D' ]
 
 // const updatedBook = {
 //   ...book,
@@ -210,23 +223,23 @@ const data = [
 //   return goodreads + librarything;
 // }
 // console.log(getTotalReviewCount(book));
-function getBooks() {
-  return data;
-}
-function getTotalReviewCount(book) {
-  const goodreads = book.reviews.goodreads.reviewsCount;
-  // this book has no reviews count on librarything, so using optional chaining ? and?? we aavoid undefined and errors simply adding a value of 0 to the counter
-  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
-  librarything;
-  return goodreads + librarything;
-}
-const books = getBooks();
+// function getBooks() {
+//   return data;
+// }
+// function getTotalReviewCount(book) {
+//   const goodreads = book.reviews.goodreads.reviewsCount;
+// this book has no reviews count on librarything, so using optional chaining ? and?? we aavoid undefined and errors simply adding a value of 0 to the counter
+//   const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+//   librarything;
+//   return goodreads + librarything;
+// }
+// const books = getBooks();
 // Map array method loops over an array and returns each element with some operation applied to it, it returns a new array.
-const x = [1, 2, 3, 4, 5].map((el) => el * 2);
-console.log(x);
+// const x = [1, 2, 3, 4, 5].map((el) => el * 2);
+// console.log(x);
 
-const titles = books.map((book) => book.title);
-console.log(titles);
+// const titles = books.map((book) => book.title);
+// console.log(titles);
 
 // when using curly braces with arrow functions we are  declaring the second part of the function in classic mode
 // const essentialData = books.map((book) => {
@@ -237,70 +250,70 @@ console.log(titles);
 // });
 // it's completely fine
 // but to return an object, the correct way to write this function in arrow mode is with parenthesis and then curly braces.
-const essentialData = books.map((book) => ({
-  title: book.title,
-  author: book.author,
-  reviewsCount: getTotalReviewCount(book),
-}));
-essentialData;
+// const essentialData = books.map((book) => ({
+//   title: book.title,
+//   author: book.author,
+//   reviewsCount: getTotalReviewCount(book),
+// }));
+// essentialData;
 
 // filter array method loops over the array and returns for each value a condition of true or false. If true the element returns, if false the element will get filtered.Filter returns a new array that can also be filtered as shown below.
 
-const longBooksWithMovie = books
-  .filter((book) => book.pages > 500)
-  .filter((book) => book.hasMovieAdaptation);
-longBooksWithMovie;
+// const longBooksWithMovie = books
+//   .filter((book) => book.pages > 500)
+//   .filter((book) => book.hasMovieAdaptation);
+// longBooksWithMovie;
 
-const adventureBooks = books
-  .filter((books) => books.genres.includes("adventure"))
-  .map((book) => book.title);
-adventureBooks;
+// const adventureBooks = books
+//   .filter((books) => books.genres.includes("adventure"))
+//   .map((book) => book.title);
+// adventureBooks;
 
 // reduce method uses an accumulator to sum each value of each object in the array returning just one value.
-const pagesAllBooks = books.reduce((acc, book) => acc + book.pages, 0);
-pagesAllBooks;
+// const pagesAllBooks = books.reduce((acc, book) => acc + book.pages, 0);
+// pagesAllBooks;
 
 // sort array method. using the minus operator and the valuee a returns first the lower value in the array and then the higher values. The contrary happens using value b, minus, then a.
 //the sort method mutates the original array (sortMinus) but we do not want that so we need to first copy the original array WITH SLICE and then apply the sort method.
 
-const sortMinus = [3, 7, 1, 9, 6];
+// const sortMinus = [3, 7, 1, 9, 6];
 // original array above
-const sortedMinus = sortMinus.sort((a, b) => a - b);
-sortedMinus;
+// const sortedMinus = sortMinus.sort((a, b) => a - b);
+// sortedMinus;
 // (altered original array below)
-sortMinus;
+// sortMinus;
 
 // we need to first copy the original array WITH SLICE and then apply the sort method as shown below.
 
-const sortPlus = [3, 7, 1, 9, 6];
+// const sortPlus = [3, 7, 1, 9, 6];
 // original array above
-const sortedPlus = sortPlus.slice().sort((a, b) => b - a);
-sortedPlus;
+// const sortedPlus = sortPlus.slice().sort((a, b) => b - a);
+// sortedPlus;
 // (original array below is unchanged)
-sortPlus;
+// sortPlus;
 
 // sorting objects
-const sortByPages = books.slice().sort((a, b) => b.pages - a.pages);
-sortByPages;
+// const sortByPages = books.slice().sort((a, b) => b.pages - a.pages);
+// sortByPages;
 // npm install -g create-react-app@latest installs latest version of create react app
 // working with unmutable arrays, means that we do not ever want to delete the original arrays and structure of apps data
 //1)add book object to array
 
-const newBook = {
-  id: 6,
-  title: "Harry Potter and the Chamber od Secrets",
-  author: "{J.K. Rowling}",
-};
-const booksAfterAdd = [...books, newBook];
-books;
-booksAfterAdd;
+// const newBook = {
+//   id: 6,
+//   title: "Harry Potter and the Chamber od Secrets",
+//   author: "{J.K. Rowling}",
+// };
+// const booksAfterAdd = [...books, newBook];
+// books;
+// booksAfterAdd;
 
 // 2)delete a book object from array
 // in the example below we return in a new array all the books that are different from id3 using the filter method
-const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
-booksAfterDelete;
+// const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+// booksAfterDelete;
 //3) update objects in the array, we can also manually delete the book with the id of 3
-const booksAfterUpdate = booksAfterDelete.map((book) =>
-  book.id === 1 ? { ...book, pages: 1210 } : book
-);
-booksAfterUpdate;
+// const booksAfterUpdate = booksAfterDelete.map((book) =>
+//   book.id === 1 ? { ...book, pages: 1210 } : book
+// );
+// booksAfterUpdate;
